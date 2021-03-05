@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import ContactCard from "./components/ContactCard";
 import "./App.css";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
-
-  fetch("https://randomuser.me/api/?results=3")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log(data);
-      setContacts(data.results);
-    });
+  
+  useEffect(() => {
+    fetch("https://randomuser.me/api/?results=4")
+      .then((response) => response.json())
+      .then((data) => {
+        setContacts(data.results);
+      });
+  }, []);
 
   return (
     <>
@@ -23,6 +24,7 @@ const App = () => {
           age={contact.dob.age}
         />
       ))}
+      <button>Re-render</button>
     </>
   );
 };
